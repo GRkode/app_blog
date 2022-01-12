@@ -19,6 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            //détermine le niveau d'accès d'un utilisateur
+            $table->enum('role', array('user', 'admin'))->default('user');
+            //Le premier commentaire de l'utilisateur sera affiché après validation par l'admin
+            $table->boolean('is_valid')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
