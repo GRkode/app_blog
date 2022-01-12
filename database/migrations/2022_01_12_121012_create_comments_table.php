@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CategoryPostTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,13 @@ class CategoryPostTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_post', function(Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Category::class);
+            $table->text('body');
+            $table->nestedSet();
+            $table->foreignIdFor(User::class);
             $table->foreignIdFor(Post::class);
+            $table->timestamps();
         });
     }
 
@@ -29,6 +32,6 @@ class CategoryPostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_post');
+        Schema::dropIfExists('comments');
     }
 }

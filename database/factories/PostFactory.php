@@ -18,7 +18,7 @@ class PostFactory extends Factory
             'meta_keywords' => implode(',', $this->faker->words($nb = 3, $asText = false)),
             'excerpt' => $this->faker->paragraph($nbSentences = 4, $variableNbSentences = true),
             'body' => $this->faker->paragraphs($nb = 8, $asText = true),
-            'active' => random_int(0,1),
+            'is_active' => random_int(0,1),
         ];
     }
 }
