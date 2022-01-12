@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
+    Lfm::routes();
+});
 
 Route::get('/', function () {
     return view('welcome');
