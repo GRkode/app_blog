@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,8 +24,9 @@ class CreatePostsTable extends Migration
             $table->text('meta_description');//la description pour le SEO
             $table->text('meta_keywords');//les mots clés pour le SEO
             $table->boolean('is_active')->default(false);//pour savoir si l’article est publié
-            $table->boolean('is_prenium')->default(false);//pour savoir si l’article est prénium
+            $table->enum('type',['standard', 'premium'])->default('standard');//pour savoir si l’article est premium
             $table->string('image')->nullable();//pour le nom de l’image réduite pour la page d’accueil
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }
