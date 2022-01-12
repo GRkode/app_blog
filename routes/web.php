@@ -20,7 +20,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], functi
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
