@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Back\AdminController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -16,6 +17,12 @@ use UniSharp\LaravelFilemanager\Lfm;
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], function () {
     Lfm::routes();
+});
+
+Route::prefix('admin')->group(function () {
+    Route::middleware('admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('administration');
+    });
 });
 
 Route::get('/', function () {

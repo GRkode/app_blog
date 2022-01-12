@@ -68,25 +68,26 @@
                     </li>
 
                     @guest
-                        @request('register')
-                            <li class="current">
-                                <a href="{{ request()->url() }}">@lang('Register')</a>
-                            </li>
-                        @endrequest
+                        <li {{ currentRoute('register') }}>
+                            <a href="{{ route('register') }}">@lang('Register')</a>
+                        </li>
                         <li {{ currentRoute('login') }}>
                             <a href="{{ route('login') }}">@lang('Login')</a>
                         </li>
-                        @request('forgot-password')
-                            <li class="current">
-                                <a href="{{ request()->url() }}">@lang('Password')</a>
-                            </li>
-                        @endrequest
+                        <li class="current">
+                            <a href="{{ route('password.request') }}">@lang('Password')</a>
+                        </li>
                         @request('reset-password/*')
-                            <li class="current">
+                            <li  {{ currentRoute('rese') }}>
                                 <a href="{{ request()->url() }}">@lang('Password')</a>
                             </li>
                         @endrequest
                     @else
+                        @if(auth()->user()->role != 'user')
+                            <li>
+                                <a href="{{ route('admin') }}">@lang('Administration')</a>
+                            </li>
+                        @endif
                         <li>
                             <form action="{{ route('logout') }}" method="POST" hidden>
                                 @csrf
