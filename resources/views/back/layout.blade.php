@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
+    <title>@lang('Administration')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/css/adminlte.min.css" />
+    @yield('css')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -36,7 +37,6 @@
                 </a>
             </li>
         </ul>
-
     </nav>
     <!-- /.navbar -->
 
@@ -50,7 +50,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                     @foreach(config('menu') as $name => $elements)
-                        @if(auth()->user()->isAdmin())
+                        @if($elements['role'] === 'redac' || auth()->user()->isAdmin())
                             @isset($elements['children'])
                                 <li class="nav-item has-treeview {{ menuOpen($elements['children']) }}">
                                     <a href="#" class="nav-link {{ currentChildActive($elements['children']) }}">
@@ -120,9 +120,6 @@
         <strong>Copyright &copy; 2022 {{ config('app.name', 'blog') }}.</strong>
     </footer>
 </div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -130,5 +127,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js" ></script>
 <!-- AdminLTE App -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/js/adminlte.min.js"></script>
+@yield('js')
 </body>
 </html>

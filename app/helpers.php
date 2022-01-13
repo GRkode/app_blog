@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+if (!function_exists('formatHour')) {
+    function formatHour($date)
+    {
+        return ucfirst(utf8_encode ($date->formatLocalized('%Hh%M')));
+    }
+}
+
 if (!function_exists('formatDate')) {
     function formatDate($date)
     {
@@ -42,7 +49,15 @@ if (!function_exists('menuOpen')) {
         }
     }
 }
-//Contrôle du role de l'utilisateur
+
+if (!function_exists('formatHour')) {
+    function formatHour($date)
+    {
+        return ucfirst(utf8_encode ($date->formatLocalized('%Hh%M')));
+    }
+}
+
+//User role control
 if (!function_exists('isRole')) {
     function isRole($role)
     {

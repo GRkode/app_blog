@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Back\AdminController;
+use App\Http\Controllers\Back\{
+    AdminController, PostController as BackPostController
+};
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -20,8 +22,15 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], functi
 });
 
 Route::prefix('admin')->group(function () {
+    Route::middleware('redac')->group(function () {
+        Route::resource('posts', BackPostController::class)->except('show');
+    });
+
     Route::middleware('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('administration');
+        Route::put('purge/{model}', [AdminController::class, 'purge'])->name('purge');
+        // Posts
+        Route::get('newposts', [BackPostController::class, 'index'])->name('posts.indexnew');
     });
 });
 
