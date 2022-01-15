@@ -12,6 +12,15 @@ use App\DataTables\PostsDataTable;
 
 class PostController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
 
     /**
      * Display a listing of the resource.
