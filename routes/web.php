@@ -5,6 +5,7 @@ use App\Http\Controllers\Back\{
     UserController as BackUserController,
     ResourceController as BackResourceController,
 };
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -53,5 +54,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+// Profile
+Route::middleware('auth')->group(function () {
+    Route::view('profile', 'auth.profile');
+    Route::put('profile', [RegisteredUserController::class, 'update'])->name('profile');
+});
 
 require __DIR__.'/auth.php';

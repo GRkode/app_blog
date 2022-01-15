@@ -85,7 +85,7 @@
                     @else
                         @if(auth()->user()->role != 'user')
                             <li>
-                                <a href="{{ route('admin') }}">@lang('Administration')</a>
+                                <a href="{{ route('administration') }}">@lang('Administration')</a>
                             </li>
                         @endif
                         <li>
