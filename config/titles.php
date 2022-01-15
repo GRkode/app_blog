@@ -22,4 +22,9 @@ return [
         'edit'     => 'User Edit',
         'indexnew' => 'New Users',
     ],
+    'comments' => [
+        'index'  => 'Comments',
+        'indexnew' => 'New Comments',
+        'edit'   => 'Comment Edit',
+    ],
 ];

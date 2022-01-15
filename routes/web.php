@@ -27,6 +27,12 @@ Route::prefix('admin')->group(function () {
     Route::middleware('redac')->group(function () {
         Route::resource('posts', BackPostController::class)->except(['show', 'create']);
         Route::get('posts/create/{id?}', [BackPostController::class, 'create'])->name('posts.create');
+        // Users
+        Route::put('valid/{user}', [BackUserController::class, 'valid'])->name('users.valid');
+        Route::put('unvalid/{user}', [BackUserController::class, 'unvalid'])->name('users.unvalid');
+        // Comments
+        Route::resource('comments', BackResourceController::class)->except(['show', 'create', 'store']);
+        Route::name('comments.indexnew')->get('newcomments', [BackResourceController::class, 'index']);
     });
 
     Route::middleware('admin')->group(function () {
