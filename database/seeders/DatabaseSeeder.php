@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
             ]);
             // Create 3 users
             User::factory()->count(4)->create();
+            $user = User::find(1);
+            $user->email = 'admin@gmail.com';
+            $user->is_valid = true;
+            $user->save();
         });
         //create categories
         DB::table('categories')->insert([

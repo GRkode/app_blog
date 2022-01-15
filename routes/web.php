@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Back\{
-    AdminController, PostController as BackPostController
+    AdminController, PostController as BackPostController,
+    UserController as BackUserController,
+    ResourceController as BackResourceController,
 };
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
@@ -32,6 +34,9 @@ Route::prefix('admin')->group(function () {
         Route::put('purge/{model}', [AdminController::class, 'purge'])->name('purge');
         // Posts
         Route::get('newposts', [BackPostController::class, 'index'])->name('posts.indexnew');
+        // Users
+        Route::resource('users', BackUserController::class)->except(['show', 'create', 'store']);
+        Route::get('newusers', [BackResourceController::class, 'index'])->name('users.indexnew');
     });
 });
 

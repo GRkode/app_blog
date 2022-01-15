@@ -73,3 +73,11 @@ if (!function_exists('getImage')) {
         return asset("{$url}/{$post->image}");
     }
 }
+if (!function_exists('getUrlSegment')) {
+    function getUrlSegment($url, $segment)
+    {
+        $url_path = parse_url(request()->url(), PHP_URL_PATH);
+        $url_segments = explode('/', $url_path);
+        return $url_segments[$segment];
+    }
+}

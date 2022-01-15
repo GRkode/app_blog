@@ -17,4 +17,9 @@ return [
         'edit'     => 'Post Edit',
         'indexnew' => 'New Posts',
     ],
+    'users' => [
+        'index'    => 'Users',
+        'edit'     => 'User Edit',
+        'indexnew' => 'New Users',
+    ],
 ];
