@@ -23,7 +23,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'auth'], functi
 
 Route::prefix('admin')->group(function () {
     Route::middleware('redac')->group(function () {
-        Route::resource('posts', BackPostController::class)->except('show');
+        Route::resource('posts', BackPostController::class)->except(['show', 'create']);
+        Route::get('posts/create/{id?}', [BackPostController::class, 'create'])->name('posts.create');
     });
 
     Route::middleware('admin')->group(function () {

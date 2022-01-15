@@ -27,6 +27,7 @@ class Post extends Model
         'meta_description',
         'meta_keywords',
         'active',
+        'type',
         'image',
         'user_id',
     ];

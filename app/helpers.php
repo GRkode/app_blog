@@ -64,3 +64,12 @@ if (!function_exists('isRole')) {
         return auth()->user()->role === $role;
     }
 }
+
+if (!function_exists('getImage')) {
+    function getImage($post, $thumb = false)
+    {
+        $url = "storage/photos/{$post->user->id}";
+        if($thumb) $url .= '/thumbs';
+        return asset("{$url}/{$post->image}");
+    }
+}
