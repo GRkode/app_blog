@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\HomeComposer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\{ Blade, View, Route };
 
@@ -24,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        View::composer(['front.layout', 'front.index'], HomeComposer::class);
         //send title with composer
         View::composer('back.layout', function ($view) {
             $title = config('titles.' . Route::currentRouteName());

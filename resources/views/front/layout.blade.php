@@ -66,19 +66,34 @@
                     <li {{ currentRoute('home') }}>
                         <a href="{{ route('home') }}" title="">@lang('Home')</a>
                     </li>
+                    <li class="has-children">
+                        <a href="#" title="">@lang('Categories')</a>
+                        <ul class="sub-menu">
+                            @foreach($categories as $category)
+                                <li><a href="#">{{ $category->title }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    <li {{ currentRoute('home') }}>
+                        <a href="{{ route('premium.index') }}" title="">@lang('Zone premium')</a>
+                    </li>
 
                     @guest
-                        <li {{ currentRoute('register') }}>
-                            <a href="{{ route('register') }}">@lang('Register')</a>
-                        </li>
-                        <li {{ currentRoute('login') }}>
-                            <a href="{{ route('login') }}">@lang('Login')</a>
-                        </li>
-                        <li class="current">
-                            <a href="{{ route('password.request') }}">@lang('Password')</a>
-                        </li>
+                        @request('register')
+                            <li class="current">
+                                <a href="{{ request()->url() }}">@lang('Register')</a>
+                            </li>
+                        @endrequest
+                            <li {{ currentRoute('login') }}>
+                                <a href="{{ route('login') }}">@lang('Login')</a>
+                            </li>
+                        @request('forgot-password')
+                            <li class="current">
+                                <a href="{{ request()->url() }}">@lang('Password')</a>
+                            </li>
+                        @endrequest
                         @request('reset-password/*')
-                            <li  {{ currentRoute('rese') }}>
+                            <li class="current">
                                 <a href="{{ request()->url() }}">@lang('Password')</a>
                             </li>
                         @endrequest
@@ -88,15 +103,21 @@
                                 <a href="{{ route('administration') }}">@lang('Administration')</a>
                             </li>
                         @endif
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST" hidden>
-                                @csrf
-                            </form>
-                            <a
-                                href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); this.previousElementSibling.submit();">
-                                @lang('Logout')
-                            </a>
+                        <li class="has-children">
+                            <a href="#" title="">{{ auth()->user()->name }}</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST" hidden>
+                                        @csrf
+                                    </form>
+                                    <a
+                                        href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); this.previousElementSibling.submit();">
+                                        @lang('Logout')
+                                    </a>
+                                </li>
+                                <li><a href="{{ url('profile') }}">@lang('Profile')</a></li>
+                            </ul>
                         </li>
                     @endguest
                 </ul>
@@ -194,8 +215,6 @@
                         <li><a href="#0">Twitter</a></li>
                         <li><a href="#0">Facebook</a></li>
                         <li><a href="#0">Dribbble</a></li>
-                        <li><a href="#0">Pinterest</a></li>
-                        <li><a href="#0">Instagram</a></li>
                     </ul>
 
                 </div> <!-- end s-footer__social links -->

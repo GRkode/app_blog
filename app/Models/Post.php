@@ -26,7 +26,7 @@ class Post extends Model
         'body',
         'meta_description',
         'meta_keywords',
-        'active',
+        'is_active',
         'type',
         'image',
         'user_id',

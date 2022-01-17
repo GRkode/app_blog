@@ -22,7 +22,7 @@ class PostRepository
             'excerpt',
             'user_id')
             ->with('user:id,name')
-            ->whereActive(true);
+            ->whereIsActive(true)->whereType('standard');
     }
     /**
      * Create a query for Post.
@@ -39,7 +39,7 @@ class PostRepository
             'excerpt',
             'user_id')
             ->with('user:id,name')
-            ->whereActive(true)->whereType('premium');
+            ->whereIsActive(true)->whereType('premium');
     }
 
     /**
@@ -52,6 +52,11 @@ class PostRepository
         return $this->queryActive()->latest();
     }
 
+    protected function queryPremiumOrderByDate()
+    {
+        return $this->queryPremium()->latest();
+    }
+
     /**
      * Get active posts collection paginated.
      *
@@ -61,6 +66,11 @@ class PostRepository
     public function getActiveOrderByDate($nbrPages)
     {
         return $this->queryActiveOrderByDate()->paginate($nbrPages);
+    }
+
+    public function getPremiumOrderByDate($nbrPages)
+    {
+        return $this->queryPremiumOrderByDate()->paginate($nbrPages);
     }
 
     /**
@@ -110,7 +120,7 @@ class PostRepository
     protected function getPreviousPost($id)
     {
         return Post::select('title', 'slug')
-            ->whereActive(true)
+            ->whereIsActive(true)
             ->latest('id')
             ->firstWhere('id', '<', $id);
     }
@@ -124,7 +134,7 @@ class PostRepository
     protected function getNextPost($id)
     {
         return Post::select('title', 'slug')
-            ->whereActive(true)
+            ->whereIsActive(true)
             ->oldest('id')
             ->firstWhere('id', '>', $id);
     }

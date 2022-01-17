@@ -30,6 +30,10 @@ class DatabaseSeeder extends Seeder
             $user->email = 'admin@gmail.com';
             $user->is_valid = true;
             $user->save();
+            $user = User::find(2);
+            $user->email = 'user@gmail.com';
+            $user->is_valid = true;
+            $user->save();
         });
         //create categories
         DB::table('categories')->insert([
@@ -164,5 +168,7 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
         ]);
+
+        $this->call(PlanTableSeeder::class);
     }
 }

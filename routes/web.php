@@ -5,6 +5,12 @@ use App\Http\Controllers\Back\{
     UserController as BackUserController,
     ResourceController as BackResourceController,
 };
+use App\Http\Controllers\{
+    PostController as FrontPostController,
+    CommentController as FrontCommentController,
+    PremiumPostController as FrontPremiumPostController,
+    PaymentController as FrontPaymentController,
+};
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
@@ -47,13 +53,22 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [FrontPostController::class, 'index'])->name('home');
+Route::get('category/{category:slug}', [FrontPostController::class, 'category'])->name('category');
+Route::get('tag/{tag:slug}', [FrontPostController::class, 'tag'])->name('tag');
+Route::get('author/{user}', [FrontPostController::class, 'user'])->name('author');
+Route::prefix('posts')->group(function () {
+    Route::get('{slug}', [FrontPostController::class, 'show'])->name('posts.display');
+    Route::get('', [FrontPostController::class, 'search'])->name('posts.search');
+    Route::get('{post}/comments', [FrontCommentController::class, 'comments'])->name('posts.comments');
+    Route::post('{post}/comments', [FrontCommentController::class, 'store'])->middleware('auth')->name('posts.comments.store');
+});
+Route::delete('comments/{comment}', [FrontCommentController::class, 'destroy'])->name('front.comments.destroy');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//article premium
+Route::get('membership', [FrontPremiumPostController::class, 'index'])->name('premium.index');
+Route::get('payments', [FrontPaymentController::class, 'index'])->name('payment');
+Route::post('payments', [FrontPaymentController::class, 'store'])->name('payment.store');
 
 // Profile
 Route::middleware('auth')->group(function () {
