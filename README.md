@@ -1,6 +1,6 @@
 # Laravel 8 My Blog
 
-The purpose of this repository is to show good development practices on [Laravel](http://laravel.com/) as well as to present cases of use of the framework's features like:
+Best practices on [Laravel](http://laravel.com/) to present cases of use of the framework's features like:
 
 - [Authentication](https://laravel.com/docs/8.x/authentication)
 - API
